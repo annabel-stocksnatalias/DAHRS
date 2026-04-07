@@ -1,39 +1,51 @@
-# DAHRS
+# DAHRS  
+**Divergence-Aware Hallucination-Remediated SRL Projection**
 
-# FCFA Framework  
-**Function-word Cross-lingual Framework for Alignment**
+A Python framework for improving cross-lingual **Semantic Role Labeling (SRL) projection** using divergence-aware alignment and hallucination mitigation techniques.
 
-A Python framework for analyzing cross-lingual word alignments with a focus on **function words**, **semantic role labeling (SRL)**, and **alignment divergence patterns**.
-
-# licenses?
+# license?
 
 ---
 
 ## Overview
 
-The **FCFA Framework** provides tools for analyzing and improving cross-lingual word alignments. It emphasizes linguistic structure by incorporating:
+**DAHRS** is a framework for projecting semantic role labels (SRL) across languages while addressing two major challenges:
 
-- Function word analysis  
-- Semantic Role Labeling (SRL)  
-- Divergence detection (one-to-many, many-to-one)  
+- **Cross-lingual divergence** (structural and lexical differences)
+- **Hallucinated alignments** (incorrect or spurious mappings)
 
-This framework is designed for **NLP research**, **machine translation analysis**, and **alignment debugging**.
+The system builds on alignment analysis techniques and introduces strategies to improve projection quality through:
+
+- Divergence-aware alignment handling  
+- Function word filtering  
+- Structured alignment resolution (FCFA: First-Come-First-Assign)  
 
 ---
 
-## Why FCFA?
+## Key Ideas
 
-Traditional alignment methods often struggle with:
+### Divergence-Aware Alignment
+Captures and analyzes:
+- One-to-many alignments  
+- Many-to-one alignments  
+- Structural mismatches between languages  
 
-- Function word mismatches across languages  
-- One-to-many and many-to-one alignments  
-- Loss of semantic structure  
+---
 
-**FCFA addresses these challenges by:**
+### Hallucination Remediation
+Reduces incorrect alignments by:
+- Filtering function words  
+- Removing inconsistent mappings  
+- Prioritizing stable alignment structures  
 
-- Explicitly modeling function words  
-- Integrating SRL tags into alignment analysis  
-- Providing interpretable visualization tools  
+---
+
+### FCFA Alignment Strategy
+Implements a **First-Come-First-Assign (FCFA)** approach:
+
+- Sequential alignment resolution  
+- Conflict reduction in many-to-one mappings  
+- Improved consistency in projected labels  
 
 ---
 
@@ -44,11 +56,9 @@ from fcfa_framework import FCFAFramework
 
 framework = FCFAFramework()
 
-src_tokens = {0: "Hello", 1: "world", 2: "!"}
-tgt_tokens = {0: "Bonjour", 1: "le", 2: "monde", 3: "!"}
+src_tokens = {0: "I", 1: "do", 2: "n't", 3: "know"}
+tgt_tokens = {0: "Je", 1: "ne", 2: "sais", 3: "pas"}
 
-framework.load_alignment_output("0-0 1-1 1-2 2-3", (src_tokens, tgt_tokens))
+framework.load_alignment_output("0-0 1-1 2-3 3-2", (src_tokens, tgt_tokens))
 
 print(framework.get_alignment_statistics())
-print("One-to-many:", framework.find_one_to_many())
-print("Many-to-one:", framework.find_many_to_one())
