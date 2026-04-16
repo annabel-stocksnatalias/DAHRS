@@ -22,6 +22,16 @@ The system builds on alignment analysis techniques and introduces strategies to 
 
 ---
 
+## Paper
+This repo goes along with the paper:
+
+"DAHRS: Divergence-Aware Hallucination-Remediated SRL Projection"
+It covers the ideas, methods, and experiments behind what's behind implemented here.
+
+https://arxiv.org/abs/2407.09283
+
+---
+
 ## Key Ideas
 
 ### Divergence-Aware Alignment
